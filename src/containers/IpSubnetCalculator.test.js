@@ -39,3 +39,20 @@ describe("when ip address is valid", () => {
     });
   });
 });
+
+describe("when ip address is not valid", () => {
+  ["192"].forEach(input => {
+    it("does not display the ip address", () => {
+      const { getByTestId } = render(<IpSubnetCalculator />);
+      const ipAddressInput = getByTestId("ip_address_input");
+
+      fireEvent.change(ipAddressInput, {
+        target: { value: input }
+      });
+
+      const textElement = getByTestId("ip_address_value");
+
+      expect(textElement).toBeEmpty();
+    });
+  });
+});

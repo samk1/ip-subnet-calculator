@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Ip4Address from "./Ip4Address.js";
 
 export default class IpSubnetCalculator extends Component {
   constructor(props) {
@@ -13,7 +14,18 @@ export default class IpSubnetCalculator extends Component {
   }
 
   get ipAddress() {
-    return this.state.value;
+    return Ip4Address.parse(this.state.value);
+  }
+
+  get ipAddressDisplay() {
+    const ipAddress = this.ipAddress;
+
+    if (ipAddress === null) {
+      return "";
+    }
+
+    const { octets, netmask } = ipAddress;
+    return `${octets.join(".")}/${netmask}`;
   }
 
   render() {
@@ -27,7 +39,7 @@ export default class IpSubnetCalculator extends Component {
           value={this.state.value}
           onChange={this.handleChange}
         />
-        <p data-testid="ip_address_value">{this.ipAddress}</p>
+        <p data-testid="ip_address_value">{this.ipAddressDisplay}</p>
       </div>
     );
   }

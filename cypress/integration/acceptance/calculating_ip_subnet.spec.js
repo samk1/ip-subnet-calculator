@@ -1,10 +1,10 @@
-describe('Calculating IP subnets', () => {
+describe("Calculating IP subnets", () => {
   beforeEach(() => {
-    cy.visit("")
-  })
+    cy.visit("");
+  });
 
   it("calculates IP address info", () => {
-    cy.testid("ip_address_input").type('192.168.254.1/24');
-    cy.testid("ip_address_value").contains('192.168.254.1/24');
-  })
-})
+    cy.testid("ip_address_input").type("192.168.254.1/24");
+    cy.testid("ip_address_value").contains("192.168.254.1/24");
+  });
+});

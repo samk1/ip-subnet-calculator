@@ -1,12 +1,10 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import IpSubnetCalculator from './containers/IpSubnetCalculator.jsx';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import IpSubnetCalculator from "./containers/IpSubnetCalculator.jsx";
 
 function App() {
-  return (
-    <IpSubnetCalculator/>
-  ) 
+  return <IpSubnetCalculator />;
 }
 
 export default App;

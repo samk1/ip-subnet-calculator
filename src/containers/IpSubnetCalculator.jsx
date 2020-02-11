@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class IpSubnetCalculator extends Component {
   constructor(props) {
-    super(props)
-    this.state = {value: ''};
+    super(props);
+    this.state = { value: "" };
 
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value})
+    this.setState({ value: event.target.value });
   }
 
   get ipAddress() {
@@ -19,9 +19,7 @@ export default class IpSubnetCalculator extends Component {
   render() {
     return (
       <div data-testid="ip_subnet_calculator">
-        <header>
-          IP Subnet Calculator
-        </header>
+        <header>IP Subnet Calculator</header>
         <input
           type="text"
           label="IP Address"
@@ -29,10 +27,8 @@ export default class IpSubnetCalculator extends Component {
           value={this.state.value}
           onChange={this.handleChange}
         />
-        <p data-testid="ip_address_value">
-          {this.ipAddress}
-        </p>
+        <p data-testid="ip_address_value">{this.ipAddress}</p>
       </div>
-    )
+    );
   }
 }

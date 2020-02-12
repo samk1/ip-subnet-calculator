@@ -27,21 +27,49 @@ describe("Ip4Address", () => {
     });
   });
 
+  describe("Ip4Address.dottedQuad", () => {
+    it("renders an integer as a dotted quad", () => {
+      expect(Ip4Address.dottedQuad(0xffffffff)).toEqual("255.255.255.255");
+    });
+  });
+
   describe("when the ip address is valid", () => {
     let ipAddress;
 
     beforeEach(() => {
-      ipAddress = new Ip4Address("192.168.254.0/23")
-    })
+      ipAddress = new Ip4Address("192.168.254.0/21");
+    });
+
+    describe("valid", () => {
+      it("returns true", () => {
+        expect(ipAddress.valid()).toBe(true);
+      });
+    });
 
     describe("renderIpAddress", () => {
       it("returns the ip address as a string", () => {
-        expect(ipAddress.renderIpAddress()).toBe("192.168.254.0/23")
-      })
-    })
+        expect(ipAddress.renderIpAddress()).toBe("192.168.254.0");
+      });
+    });
 
     describe("renderSubnetMask", () => {
-      test.todo("returns the subnet mask as a string");
-    })
-  })
+      it("returns the subnet mask as a string", () => {
+        expect(ipAddress.renderSubnetMask()).toBe("255.255.248.0");
+      });
+    });
+  });
+
+  describe("when the ip address is invalid", () => {
+    let ipAddress;
+
+    beforeEach(() => {
+      ipAddress = new Ip4Address("abc");
+    });
+
+    describe("valid", () => {
+      it("returns false", () => {
+        expect(ipAddress.valid()).toBe(false);
+      });
+    });
+  });
 });

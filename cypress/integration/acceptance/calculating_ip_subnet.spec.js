@@ -21,10 +21,10 @@ describe("Calculating IP subnets", () => {
     });
 
     it("displays the ip address", () => {
-      cy.testid("ip_address_value").contains("192.168.254.1/24");
+      cy.testid("ip_address_value").contains("192.168.254.1");
     });
 
-    it.skip("displays the subnet mask", () => {
+    it("displays the subnet mask", () => {
       cy.testid("subnet_mask_value").contains("255.255.255.0");
     });
   });

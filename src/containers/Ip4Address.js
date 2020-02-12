@@ -24,16 +24,38 @@ export default class Ip4Address {
     return { octets, netmask };
   }
 
+  static dottedQuad(input) {
+    const uint32 = input & 0xFFFFFFFF; 
+    return [
+      (0xFF000000 & uint32) >>> 24,
+      (0x00FF0000 & uint32) >>> 16,
+      (0x0000FF00 & uint32) >>> 8,
+      (0x000000FF & uint32)
+    ].join(".")
+  }
+
   constructor(ipAddress) {
-    this.value = Ip4Address.parse(ipAddress);
+    this._parsed = Ip4Address.parse(ipAddress);
+    if (this._parsed !== null) {
+      const { octets, netmask } = this._parsed;
+
+      this.rawIpAddress = octets.reduce((ipAddress, octet, i) => {
+        return (ipAddress << 8) + octet
+      }, 0)
+
+      this.rawSubnetMask = 0xFFFFFFFF ^ ((1 << (32 - netmask)) - 1)
+    }
+  }
+
+  valid() {
+    return !!this._parsed
   }
 
   renderIpAddress() {
-    if (this.value === null) {
-      return "";
-    }
+    return Ip4Address.dottedQuad(this.rawIpAddress)
+  }
 
-    const { octets, netmask } = this.value;
-    return `${octets.join(".")}/${netmask}`;
+  renderSubnetMask() {
+    return Ip4Address.dottedQuad(this.rawSubnetMask)
   }
 }

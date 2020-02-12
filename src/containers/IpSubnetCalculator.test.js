@@ -1,6 +1,13 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import IpSubnetCalculator from "./IpSubnetCalculator.jsx";
+import Ip4Address from "./Ip4Address.js";
+
+jest.mock("./Ip4Address.js");
+
+beforeEach(() => {
+  Ip4Address.mockClear();
+});
 
 it("renders ip subnet calculator", () => {
   const { getByTestId } = render(<IpSubnetCalculator />);
@@ -21,41 +28,46 @@ it("renders ip address input", () => {
 });
 
 describe("when ip address is valid", () => {
-  [
-    {
-      input: "192.168.0.0/23",
-      subnetMask: "255.255.252.0",
-      ipAddress: "192.168.0.0/23"
-    }
-  ].forEach(({ input, subnetMask, ipAddress }) => {
-    it("displays the ip address in dotted quad format", () => {
-      const { getByTestId } = render(<IpSubnetCalculator />);
-      const ipAddressInput = getByTestId("ip_address_input");
+  beforeEach(() => {
+    Ip4Address.mockImplementation(() => ({
+      valid: () => true,
+      renderIpAddress: () => "the ip address",
+      renderSubnetMask: () => "the subnet mask"
+    }));
 
-      fireEvent.change(ipAddressInput, {
-        target: { value: input }
-      });
+    render(<IpSubnetCalculator />);
 
-      expect(getByTestId("ip_address_value")).toHaveTextContent(ipAddress);
-      pending();
-      expect(getByTestId("subnet_mask_value")).toHaveTextContent(subnetMask);
+    fireEvent.change(screen.getByTestId("ip_address_input"), {
+      target: { value: "value" }
     });
+  });
+
+  it("displays the ip address", () => {
+    expect(screen.getByTestId("ip_address_value")).toHaveTextContent(
+      "the ip address"
+    );
+  });
+
+  it("displays the subnet mask", () => {
+    expect(screen.getByTestId("subnet_mask_value")).toHaveTextContent(
+      "the subnet mask"
+    );
   });
 });
 
 describe("when ip address is not valid", () => {
-  ["192"].forEach(input => {
-    it("does not display the ip address", () => {
-      const { getByTestId } = render(<IpSubnetCalculator />);
-      const ipAddressInput = getByTestId("ip_address_input");
+  beforeEach(() => {
+    Ip4Address.mockImplementation(() => ({
+      valid: () => false
+    }));
 
-      fireEvent.change(ipAddressInput, {
-        target: { value: input }
-      });
+    render(<IpSubnetCalculator />);
 
-      const textElement = getByTestId("ip_address_value");
-
-      expect(textElement).toBeEmpty();
+    fireEvent.change(screen.getByTestId("ip_address_input"), {
+      target: { value: "value" }
     });
+  });
+  it("does not display the ip address", () => {
+    expect(screen.getByTestId("ip_address_value")).toBeEmpty();
   });
 });

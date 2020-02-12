@@ -14,18 +14,11 @@ export default class IpSubnetCalculator extends Component {
   }
 
   get ipAddress() {
-    return Ip4Address.parse(this.state.value);
+    return new Ip4Address(this.state.value);
   }
 
   get ipAddressDisplay() {
-    const ipAddress = this.ipAddress;
-
-    if (ipAddress === null) {
-      return "";
-    }
-
-    const { octets, netmask } = ipAddress;
-    return `${octets.join(".")}/${netmask}`;
+    return this.ipAddress.renderIpAddress();
   }
 
   render() {

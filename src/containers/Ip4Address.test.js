@@ -1,7 +1,7 @@
 import Ip4Address from "./Ip4Address.js";
 
 describe("Ip4Address", () => {
-  describe("Ip4Address.valid", () => {
+  describe("Ip4Address.parse", () => {
     it("returns parsed ip address if given a valid ip address", () => {
       expect(Ip4Address.parse("192.168.254.0/24")).toEqual({
         octets: [192, 168, 254, 0],
@@ -26,4 +26,22 @@ describe("Ip4Address", () => {
       });
     });
   });
+
+  describe("when the ip address is valid", () => {
+    let ipAddress;
+
+    beforeEach(() => {
+      ipAddress = new Ip4Address("192.168.254.0/23")
+    })
+
+    describe("renderIpAddress", () => {
+      it("returns the ip address as a string", () => {
+        expect(ipAddress.renderIpAddress()).toBe("192.168.254.0/23")
+      })
+    })
+
+    describe("renderSubnetMask", () => {
+      test.todo("returns the subnet mask as a string");
+    })
+  })
 });

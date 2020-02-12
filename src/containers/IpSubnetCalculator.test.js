@@ -22,9 +22,12 @@ it("renders ip address input", () => {
 
 describe("when ip address is valid", () => {
   [
-    ["192.168.0.0/23", "192.168.0.0/23"]
-    // ['1.1.1.1', '1.1.1.1/32'],
-  ].forEach(([input, expected]) => {
+    {
+      input: "192.168.0.0/23",
+      subnetMask: "255.255.252.0",
+      ipAddress: "192.168.0.0/23"
+    }
+  ].forEach(({ input, subnetMask, ipAddress }) => {
     it("displays the ip address in dotted quad format", () => {
       const { getByTestId } = render(<IpSubnetCalculator />);
       const ipAddressInput = getByTestId("ip_address_input");
@@ -33,9 +36,9 @@ describe("when ip address is valid", () => {
         target: { value: input }
       });
 
-      const textElement = getByTestId("ip_address_value");
-
-      expect(textElement).toHaveTextContent(expected);
+      expect(getByTestId("ip_address_value")).toHaveTextContent(ipAddress);
+      pending();
+      expect(getByTestId("subnet_mask_value")).toHaveTextContent(subnetMask);
     });
   });
 });

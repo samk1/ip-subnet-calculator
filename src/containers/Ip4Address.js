@@ -23,4 +23,17 @@ export default class Ip4Address {
 
     return { octets, netmask };
   }
+
+  constructor(ipAddress) {
+    this.value = Ip4Address.parse(ipAddress);
+  }
+
+  renderIpAddress() {
+    if (this.value === null) {
+      return "";
+    }
+
+    const { octets, netmask } = this.value;
+    return `${octets.join(".")}/${netmask}`;
+  }
 }

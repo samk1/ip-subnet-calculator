@@ -32,12 +32,12 @@ describe("Calculating IP subnets", () => {
       cy.testid("ip_address_value").contains("192.168.254.5");
     });
 
-    it.skip("displays the high address", () => {
+    it("displays the high address", () => {
       cy.testid("high_address_value").contains("192.168.254.254")
     })
 
-    it.skip("displays the broadcast address", () => {
-      cy.testid("broadcast_address").contains("192.168.254.255")
+    it("displays the broadcast address", () => {
+      cy.testid("broadcast_address_value").contains("192.168.254.255")
     })
 
     it("displays the subnet mask", () => {

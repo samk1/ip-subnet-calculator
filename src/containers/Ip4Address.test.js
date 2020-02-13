@@ -65,8 +65,20 @@ describe("Ip4Address", () => {
     })
 
     describe("renderLowAddress", () => {
-      it("returns the network address", () => {
+      it("returns the low address", () => {
         expect(ipAddress.renderLowAddress()).toBe("192.168.254.1")
+      })
+    })
+
+    describe("renderHighAddress", () => {
+      it("returns the high address", () => {
+        expect(ipAddress.renderHighAddress()).toBe("192.168.254.254")
+      })
+    })
+
+    describe("renderBroadcastAddress", () => {
+      it("returns the high address", () => {
+        expect(ipAddress.renderBroadcastAddress()).toBe("192.168.254.255")
       })
     })
   });

@@ -70,13 +70,13 @@ describe("when ip address is valid", () => {
     );
   });
 
-  xit("displays the high address", () => {
+  it("displays the high address", () => {
     expect(screen.getByTestId("high_address_value")).toHaveTextContent(
       "the high address"
     );
   });
 
-  xit("displays the broadcast address", () => {
+  it("displays the broadcast address", () => {
     expect(screen.getByTestId("broadcast_address_value")).toHaveTextContent(
       "the broadcast address"
     );

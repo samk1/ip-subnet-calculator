@@ -1,4 +1,7 @@
+const allOnes = 0xFFFFFFFF
+
 export default class Ip4Address {
+
   static parse(ipAddress) {
     const match = ipAddress.match(
       /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(?:\/([0-9]+))?$/
@@ -25,7 +28,7 @@ export default class Ip4Address {
   }
 
   static dottedQuad(input) {
-    const uint32 = input & 0xFFFFFFFF; 
+    const uint32 = input & allOnes; 
     return [
       (0xFF000000 & uint32) >>> 24,
       (0x00FF0000 & uint32) >>> 16,
@@ -43,11 +46,15 @@ export default class Ip4Address {
         return (ipAddress << 8) + octet
       }, 0)
 
-      this.subnetMask = 0xFFFFFFFF ^ ((1 << (32 - netmask)) - 1)
+      this.subnetMask = allOnes ^ ((1 << (32 - netmask)) - 1)
 
       this.networkAddress = this.subnetMask & this.ipAddress
 
       this.lowAddress = this.networkAddress + 1
+
+      this.broadcastAddress = this.networkAddress | (this.subnetMask ^ allOnes)
+
+      this.highAddress = this.broadcastAddress - 1
     }
   }
 
@@ -69,5 +76,13 @@ export default class Ip4Address {
 
   renderLowAddress() {
     return Ip4Address.dottedQuad(this.lowAddress)
+  }
+
+  renderHighAddress() {
+    return Ip4Address.dottedQuad(this.highAddress)
+  }
+
+  renderBroadcastAddress() {
+    return Ip4Address.dottedQuad(this.broadcastAddress)
   }
 }

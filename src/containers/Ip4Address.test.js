@@ -63,6 +63,12 @@ describe("Ip4Address", () => {
         expect(ipAddress.renderNetworkAddress()).toBe("192.168.254.0")
       })
     })
+
+    describe("renderLowAddress", () => {
+      it("returns the network address", () => {
+        expect(ipAddress.renderLowAddress()).toBe("192.168.254.1")
+      })
+    })
   });
 
   describe("when the ip address is invalid", () => {

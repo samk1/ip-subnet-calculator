@@ -64,7 +64,7 @@ describe("when ip address is valid", () => {
     );
   });
 
-  xit("displays the low address", () => {
+  it("displays the low address", () => {
     expect(screen.getByTestId("low_address_value")).toHaveTextContent(
       "the low address"
     );

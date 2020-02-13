@@ -39,13 +39,15 @@ export default class Ip4Address {
     if (this._parsed !== null) {
       const { octets, netmask } = this._parsed;
 
-      this.rawIpAddress = octets.reduce((ipAddress, octet, i) => {
+      this.ipAddress = octets.reduce((ipAddress, octet, i) => {
         return (ipAddress << 8) + octet
       }, 0)
 
-      this.rawSubnetMask = 0xFFFFFFFF ^ ((1 << (32 - netmask)) - 1)
+      this.subnetMask = 0xFFFFFFFF ^ ((1 << (32 - netmask)) - 1)
 
-      this.rawNetworkAddress = this.rawSubnetMask & this.rawIpAddress
+      this.networkAddress = this.subnetMask & this.ipAddress
+
+      this.lowAddress = this.networkAddress + 1
     }
   }
 
@@ -54,14 +56,18 @@ export default class Ip4Address {
   }
 
   renderIpAddress() {
-    return Ip4Address.dottedQuad(this.rawIpAddress)
+    return Ip4Address.dottedQuad(this.ipAddress)
   }
 
   renderSubnetMask() {
-    return Ip4Address.dottedQuad(this.rawSubnetMask)
+    return Ip4Address.dottedQuad(this.subnetMask)
   }
 
   renderNetworkAddress() {
-    return Ip4Address.dottedQuad(this.rawNetworkAddress)
+    return Ip4Address.dottedQuad(this.networkAddress)
+  }
+
+  renderLowAddress() {
+    return Ip4Address.dottedQuad(this.lowAddress)
   }
 }

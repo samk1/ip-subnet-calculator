@@ -24,7 +24,7 @@ describe("Calculating IP subnets", () => {
       cy.testid("network_address_value").contains("192.168.254.0");
     });
 
-    it.skip("displays the low address", () => {
+    it("displays the low address", () => {
       cy.testid("low_address_value").contains("192.168.254.1")
     })
 

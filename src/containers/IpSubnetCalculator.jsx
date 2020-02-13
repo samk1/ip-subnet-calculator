@@ -31,6 +31,10 @@ export default class IpSubnetCalculator extends Component {
     return this.valid ? this.state.ipAddress.renderNetworkAddress() : ""
   }
 
+  get lowAddressDisplay() {
+    return this.valid ? this.state.ipAddress.renderLowAddress() : ""
+  }
+
   get valid() {
     return this.state.ipAddress ? this.state.ipAddress.valid() : false;
   }
@@ -49,6 +53,7 @@ export default class IpSubnetCalculator extends Component {
         <article data-testid="ip_address_value">{this.ipAddressDisplay}</article>
         <article data-testid="subnet_mask_value">{this.subnetMaskDisplay}</article>
         <article data-testid="network_address_value">{this.networkAddressDisplay}</article>
+        <article data-testid="low_address_value">{this.lowAddressDisplay}</article>
       </section>
     );
   }

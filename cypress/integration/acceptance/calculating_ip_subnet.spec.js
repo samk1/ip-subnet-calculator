@@ -20,7 +20,7 @@ describe("Calculating IP subnets", () => {
       cy.testid("ip_address_input").type("192.168.254.5/24");
     });
 
-    it.skip("displays the network address", () => {
+    it("displays the network address", () => {
       cy.testid("network_address_value").contains("192.168.254.0");
     });
 

@@ -44,6 +44,8 @@ export default class Ip4Address {
       }, 0)
 
       this.rawSubnetMask = 0xFFFFFFFF ^ ((1 << (32 - netmask)) - 1)
+
+      this.rawNetworkAddress = this.rawSubnetMask & this.rawIpAddress
     }
   }
 
@@ -57,5 +59,9 @@ export default class Ip4Address {
 
   renderSubnetMask() {
     return Ip4Address.dottedQuad(this.rawSubnetMask)
+  }
+
+  renderNetworkAddress() {
+    return Ip4Address.dottedQuad(this.rawNetworkAddress)
   }
 }

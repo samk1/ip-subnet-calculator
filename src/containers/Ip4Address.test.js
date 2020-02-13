@@ -37,7 +37,7 @@ describe("Ip4Address", () => {
     let ipAddress;
 
     beforeEach(() => {
-      ipAddress = new Ip4Address("192.168.254.0/21");
+      ipAddress = new Ip4Address("192.168.254.1/24");
     });
 
     describe("valid", () => {
@@ -47,16 +47,22 @@ describe("Ip4Address", () => {
     });
 
     describe("renderIpAddress", () => {
-      it("returns the ip address as a string", () => {
-        expect(ipAddress.renderIpAddress()).toBe("192.168.254.0");
+      it("returns the ip address", () => {
+        expect(ipAddress.renderIpAddress()).toBe("192.168.254.1");
       });
     });
 
     describe("renderSubnetMask", () => {
-      it("returns the subnet mask as a string", () => {
-        expect(ipAddress.renderSubnetMask()).toBe("255.255.248.0");
+      it("returns the subnet mask", () => {
+        expect(ipAddress.renderSubnetMask()).toBe("255.255.255.0");
       });
     });
+
+    describe("renderNetworkAddress", () => {
+      it("returns the network address", () => {
+        expect(ipAddress.renderNetworkAddress()).toBe("192.168.254.0")
+      })
+    })
   });
 
   describe("when the ip address is invalid", () => {

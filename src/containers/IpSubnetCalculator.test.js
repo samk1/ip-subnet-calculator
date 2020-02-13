@@ -32,7 +32,11 @@ describe("when ip address is valid", () => {
     Ip4Address.mockImplementation(() => ({
       valid: () => true,
       renderIpAddress: () => "the ip address",
-      renderSubnetMask: () => "the subnet mask"
+      renderSubnetMask: () => "the subnet mask",
+      renderNetworkAddress: () => "the network address",
+      renderLowAddress: () => "the low address",
+      renderHighAddress: () => "the high address",
+      renderBroadcastAddress: () => "the broadcast address"
     }));
 
     render(<IpSubnetCalculator />);
@@ -51,6 +55,30 @@ describe("when ip address is valid", () => {
   it("displays the subnet mask", () => {
     expect(screen.getByTestId("subnet_mask_value")).toHaveTextContent(
       "the subnet mask"
+    );
+  });
+
+  it("displays the network address", () => {
+    expect(screen.getByTestId("network_address_value")).toHaveTextContent(
+      "the network address"
+    );
+  });
+
+  xit("displays the low address", () => {
+    expect(screen.getByTestId("low_address_value")).toHaveTextContent(
+      "the low address"
+    );
+  });
+
+  xit("displays the high address", () => {
+    expect(screen.getByTestId("high_address_value")).toHaveTextContent(
+      "the high address"
+    );
+  });
+
+  xit("displays the broadcast address", () => {
+    expect(screen.getByTestId("broadcast_address_value")).toHaveTextContent(
+      "the broadcast address"
     );
   });
 });

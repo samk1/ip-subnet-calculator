@@ -2,7 +2,23 @@ import React from "react";
 import App from "./App";
 import IpSubnetCalculator from "./containers/IpSubnetCalculator";
 
-test("renders ip subnet calculator", () => {
-  const wrapper = shallow(<App />);
+let wrapper;
+
+beforeEach(() => {
+  wrapper = shallow(<App />);
+});
+
+it("renders ip subnet calculator", () => {
   expect(wrapper).toContainExactlyOneMatchingElement(IpSubnetCalculator);
+});
+
+it("renders ip address input", () => {
+  expect(wrapper.testid("ip_address_input")).toExist();
+});
+
+it("sends the input value to IpSubnetCalculator", () => {
+  wrapper
+    .testid("ip_address_input")
+    .simulate("change", { target: { value: "value" } });
+  expect(wrapper.find(IpSubnetCalculator).prop("ipAddress")).toBe("value");
 });

@@ -3,6 +3,10 @@ const allOnes = 0xFFFFFFFF
 export default class Ip4Address {
 
   static parse(ipAddress) {
+    if (typeof ipAddress !== 'string') {
+      return null;
+    }
+
     const match = ipAddress.match(
       /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(?:\/([0-9]+))?$/
     );
@@ -58,31 +62,31 @@ export default class Ip4Address {
     }
   }
 
-  valid() {
+  get valid() {
     return !!this._parsed
   }
 
   renderIpAddress() {
-    return Ip4Address.dottedQuad(this.ipAddress)
+    return this.valid ? Ip4Address.dottedQuad(this.ipAddress) : ""
   }
 
   renderSubnetMask() {
-    return Ip4Address.dottedQuad(this.subnetMask)
+    return this.valid ? Ip4Address.dottedQuad(this.subnetMask) : ""
   }
 
   renderNetworkAddress() {
-    return Ip4Address.dottedQuad(this.networkAddress)
+    return this.valid ? Ip4Address.dottedQuad(this.networkAddress) : ""
   }
 
   renderLowAddress() {
-    return Ip4Address.dottedQuad(this.lowAddress)
+    return this.valid ? Ip4Address.dottedQuad(this.lowAddress) : ""
   }
 
   renderHighAddress() {
-    return Ip4Address.dottedQuad(this.highAddress)
+    return this.valid ? Ip4Address.dottedQuad(this.highAddress) : ""
   }
 
   renderBroadcastAddress() {
-    return Ip4Address.dottedQuad(this.broadcastAddress)
+    return this.valid ? Ip4Address.dottedQuad(this.broadcastAddress) : ""
   }
 }

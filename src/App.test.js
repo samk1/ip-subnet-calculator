@@ -1,9 +1,8 @@
 import React from "react";
-import { render } from "@testing-library/react";
 import App from "./App";
+import IpSubnetCalculator from "./containers/IpSubnetCalculator";
 
-test("renders ip subnet calculator header", () => {
-  const { getByText } = render(<App />);
-  const textElement = getByText(/IP Subnet Calculator/);
-  expect(textElement).toBeInTheDocument();
+test("renders ip subnet calculator", () => {
+  const wrapper = shallow(<App />);
+  expect(wrapper).toContainExactlyOneMatchingElement(IpSubnetCalculator);
 });

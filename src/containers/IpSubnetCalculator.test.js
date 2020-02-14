@@ -1,30 +1,24 @@
 import React from "react";
-import { render, fireEvent, screen } from "@testing-library/react";
 import IpSubnetCalculator from "./IpSubnetCalculator.jsx";
 import Ip4Address from "./Ip4Address.js";
 
 jest.mock("./Ip4Address.js");
 
+let wrapper;
+let testid;
+
 beforeEach(() => {
   Ip4Address.mockClear();
+  wrapper = shallow(<IpSubnetCalculator />);
+  testid = wrapper.testid.bind(wrapper)
 });
 
 it("renders ip subnet calculator", () => {
-  const { getByTestId } = render(<IpSubnetCalculator />);
-  const container = getByTestId("ip_subnet_calculator");
-  expect(container).toBeInTheDocument();
-});
-
-it("renders a title", () => {
-  const { getByText } = render(<IpSubnetCalculator />);
-  const textElement = getByText(/IP Subnet Calculator/);
-  expect(textElement).toBeInTheDocument();
+  expect(testid("ip_subnet_calculator")).toExist();
 });
 
 it("renders ip address input", () => {
-  const { getByTestId } = render(<IpSubnetCalculator />);
-  const ipAddressInput = getByTestId("ip_address_input");
-  expect(ipAddressInput).toBeInTheDocument();
+  expect(testid("ip_address_input")).toExist();
 });
 
 describe("when ip address is valid", () => {
@@ -39,47 +33,31 @@ describe("when ip address is valid", () => {
       renderBroadcastAddress: () => "the broadcast address"
     }));
 
-    render(<IpSubnetCalculator />);
-
-    fireEvent.change(screen.getByTestId("ip_address_input"), {
-      target: { value: "value" }
-    });
+    testid("ip_address_input").simulate("change", {target: { value: "value" }});
   });
 
   it("displays the ip address", () => {
-    expect(screen.getByTestId("ip_address_value")).toHaveTextContent(
-      "the ip address"
-    );
+    expect(testid("ip_address_value").text()).toBe("the ip address");
   });
 
   it("displays the subnet mask", () => {
-    expect(screen.getByTestId("subnet_mask_value")).toHaveTextContent(
-      "the subnet mask"
-    );
+    expect(testid("subnet_mask_value").text()).toBe("the subnet mask");
   });
 
   it("displays the network address", () => {
-    expect(screen.getByTestId("network_address_value")).toHaveTextContent(
-      "the network address"
-    );
+    expect(testid("network_address_value").text()).toBe("the network address");
   });
 
   it("displays the low address", () => {
-    expect(screen.getByTestId("low_address_value")).toHaveTextContent(
-      "the low address"
-    );
+    expect(testid("low_address_value").text()).toBe("the low address");
   });
 
   it("displays the high address", () => {
-    expect(screen.getByTestId("high_address_value")).toHaveTextContent(
-      "the high address"
-    );
+    expect(testid("high_address_value").text()).toBe("the high address");
   });
 
   it("displays the broadcast address", () => {
-    expect(screen.getByTestId("broadcast_address_value")).toHaveTextContent(
-      "the broadcast address"
-    );
+    expect(testid("broadcast_address_value").text()).toBe("the broadcast address");
   });
 });
 
@@ -89,13 +67,9 @@ describe("when ip address is not valid", () => {
       valid: () => false
     }));
 
-    render(<IpSubnetCalculator />);
-
-    fireEvent.change(screen.getByTestId("ip_address_input"), {
-      target: { value: "value" }
-    });
+    testid("ip_address_input").simulate("change", {target: { value: "value" }});
   });
   it("does not display the ip address", () => {
-    expect(screen.getByTestId("ip_address_value")).toBeEmpty();
+    expect(testid("ip_address_value").text()).toBe("");
   });
 });

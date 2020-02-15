@@ -9,7 +9,8 @@ describe("splitLine", () => {
     { input: '"a",b', expected: ["a", "b"] },
     { input: '"a,",b', expected: ["a,", "b"] },
     { input: '"a\nb"', expected: ["a\nb"] },
-    { input: "a,,", expected: ["a", null, null] }
+    { input: "a,,", expected: ["a", "", ""] },
+    { input: '"\\"a\\""', expected: ['"a"'] }
   ].forEach(({ input, expected }) => {
     it("splits the line into fields", () => {
       expect(splitLine(input)).toEqual(expected);

@@ -13,7 +13,9 @@ function parse(ipAddress) {
 
   const [_, octet1, octet2, octet3, octet4, maybeNetmask] = match;
 
-  const octets = [octet1, octet2, octet3, octet4].map(o => o ? parseInt(o) : 0);
+  const octets = [octet1, octet2, octet3, octet4].map(o =>
+    o ? parseInt(o) : 0
+  );
   const netmask = parseInt(maybeNetmask) || 32;
 
   if (netmask > 32) {
@@ -52,4 +54,10 @@ function calculate({ octets, netmask }) {
   };
 }
 
-module.exports = {parse, calculate}
+function contains(network, ip) {
+  const { networkAddress, broadcastAddress } = network;
+  const { ipAddress } = ip;
+  return ipAddress >= networkAddress && ipAddress <= broadcastAddress;
+}
+
+module.exports = { parse, calculate, contains };

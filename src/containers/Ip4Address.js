@@ -1,92 +1,55 @@
-const allOnes = 0xFFFFFFFF
-
-export default class Ip4Address {
-
-  static parse(ipAddress) {
-    if (typeof ipAddress !== 'string') {
-      return null;
-    }
-
-    const match = ipAddress.match(
-      /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(?:\/([0-9]+))?$/
-    );
-
-    if (match === null) {
-      return null;
-    }
-
-    const [_, octet1, octet2, octet3, octet4, maybeNetmask] = match;
-
-    const octets = [octet1, octet2, octet3, octet4].map(o => parseInt(o));
-    const netmask = parseInt(maybeNetmask) || 32;
-
-    if (netmask > 32) {
-      return null;
-    }
-
-    if (octets.find(o => o > 255)) {
-      return null;
-    }
-
-    return { octets, netmask };
+function parse(ipAddress) {
+  if (typeof ipAddress !== "string") {
+    return null;
   }
 
-  static dottedQuad(input) {
-    const uint32 = input & allOnes; 
-    return [
-      (0xFF000000 & uint32) >>> 24,
-      (0x00FF0000 & uint32) >>> 16,
-      (0x0000FF00 & uint32) >>> 8,
-      (0x000000FF & uint32)
-    ].join(".")
+  const match = ipAddress.match(
+    /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)(?:\/([0-9]+))?$/
+  );
+
+  if (match === null) {
+    return null;
   }
 
-  constructor(ipAddress) {
-    this._parsed = Ip4Address.parse(ipAddress);
-    if (this._parsed !== null) {
-      const { octets, netmask } = this._parsed;
+  const [_, octet1, octet2, octet3, octet4, maybeNetmask] = match;
 
-      this.ipAddress = octets.reduce((ipAddress, octet, i) => {
-        return (ipAddress << 8) + octet
-      }, 0)
+  const octets = [octet1, octet2, octet3, octet4].map(o => parseInt(o));
+  const netmask = parseInt(maybeNetmask) || 32;
 
-      this.subnetMask = allOnes ^ ((1 << (32 - netmask)) - 1)
-
-      this.networkAddress = this.subnetMask & this.ipAddress
-
-      this.lowAddress = this.networkAddress + 1
-
-      this.broadcastAddress = this.networkAddress | (this.subnetMask ^ allOnes)
-
-      this.highAddress = this.broadcastAddress - 1
-    }
+  if (netmask > 32) {
+    return null;
   }
 
-  get valid() {
-    return !!this._parsed
+  if (octets.find(o => o > 255)) {
+    return null;
   }
 
-  renderIpAddress() {
-    return this.valid ? Ip4Address.dottedQuad(this.ipAddress) : ""
-  }
-
-  renderSubnetMask() {
-    return this.valid ? Ip4Address.dottedQuad(this.subnetMask) : ""
-  }
-
-  renderNetworkAddress() {
-    return this.valid ? Ip4Address.dottedQuad(this.networkAddress) : ""
-  }
-
-  renderLowAddress() {
-    return this.valid ? Ip4Address.dottedQuad(this.lowAddress) : ""
-  }
-
-  renderHighAddress() {
-    return this.valid ? Ip4Address.dottedQuad(this.highAddress) : ""
-  }
-
-  renderBroadcastAddress() {
-    return this.valid ? Ip4Address.dottedQuad(this.broadcastAddress) : ""
-  }
+  return { octets, netmask };
 }
+
+function calculate({ octets, netmask }) {
+  const ipAddress = octets.reduce((ipAddress, octet, i) => {
+    return (ipAddress << 8) + octet;
+  }, 0);
+
+  const subnetMask = 0xffffffff ^ ((1 << (32 - netmask)) - 1);
+
+  const networkAddress = subnetMask & ipAddress;
+
+  const lowAddress = networkAddress + 1;
+
+  const broadcastAddress = networkAddress | (subnetMask ^ 0xffffffff);
+
+  const highAddress = broadcastAddress - 1;
+
+  return {
+    ipAddress,
+    subnetMask,
+    networkAddress,
+    lowAddress,
+    broadcastAddress,
+    highAddress
+  };
+}
+
+module.exports = {parse, calculate}

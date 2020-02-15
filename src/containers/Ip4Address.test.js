@@ -12,6 +12,11 @@ describe("Ip4Address", () => {
         octets: [192, 168, 254, 0],
         netmask: 32
       });
+
+      expect(parse("192/8")).toEqual({
+        octets: [192, 0, 0, 0],
+        netmask: 8
+      })
     });
 
     [

@@ -10,7 +10,7 @@ describe("Calculating IP subnets", () => {
     });
 
     it("doesn't display anything", () => {
-      cy.testid("ip_address_value").should("be.empty");
+      cy.testid("ipAddress").should("be.empty");
     });
   });
 
@@ -21,27 +21,27 @@ describe("Calculating IP subnets", () => {
     });
 
     it("displays the network address", () => {
-      cy.testid("network_address_value").contains("192.168.254.0");
+      cy.testid("networkAddress").contains("192.168.254.0");
     });
 
     it("displays the low address", () => {
-      cy.testid("low_address_value").contains("192.168.254.1")
-    })
+      cy.testid("lowAddress").contains("192.168.254.1");
+    });
 
     it("displays the ip address", () => {
-      cy.testid("ip_address_value").contains("192.168.254.5");
+      cy.testid("ipAddress").contains("192.168.254.5");
     });
 
     it("displays the high address", () => {
-      cy.testid("high_address_value").contains("192.168.254.254")
-    })
+      cy.testid("highAddress").contains("192.168.254.254");
+    });
 
     it("displays the broadcast address", () => {
-      cy.testid("broadcast_address_value").contains("192.168.254.255")
-    })
+      cy.testid("broadcastAddress").contains("192.168.254.255");
+    });
 
     it("displays the subnet mask", () => {
-      cy.testid("subnet_mask_value").contains("255.255.255.0");
+      cy.testid("subnetMask").contains("255.255.255.0");
     });
   });
 });

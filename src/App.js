@@ -4,7 +4,7 @@ import "./App.css";
 import IpSubnetCalculator from "./containers/IpSubnetCalculator.jsx";
 
 function useInput(initialValue) {
-  const [value, setValue] = useState(initialValue)
+  const [value, setValue] = useState(initialValue);
 
   return {
     value,
@@ -12,14 +12,14 @@ function useInput(initialValue) {
     bind: {
       value,
       onChange: event => {
-        setValue(event.target.value)
+        setValue(event.target.value);
       }
     }
-  }
+  };
 }
 
 function App() {
-  const {value, bind} = useInput()
+  const { value, bind } = useInput();
 
   return (
     <>

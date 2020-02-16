@@ -25,3 +25,16 @@ export function mapRecord(headers, record) {
 
   return Object.fromEntries(entries);
 }
+
+export function parseCsv(data) {
+  const lines = data.split("\r\n");
+  const records = lines.map(splitLine);
+  const headers = records.shift()
+
+  const csv = []
+  for (const record of records) {
+    csv.push(mapRecord(headers, record))
+  }
+
+  return csv
+}

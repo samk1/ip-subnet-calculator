@@ -47,3 +47,14 @@ describe("mapRecord", () => {
     });
   });
 });
+
+describe("parseCsv", () => {
+  it("parses CSV data", () => {
+    const csv = "a,b\r\n1,2\r\n3,4"
+
+    expect(parseCsv(csv)).toEqual([
+      {a: "1", b: "2"},
+      {a: "3", b: "4"}
+    ])
+  })
+})

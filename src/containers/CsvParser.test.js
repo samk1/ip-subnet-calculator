@@ -1,6 +1,6 @@
-import { parseCsv, mapRecord, splitLine } from "./CsvParser";
+import { parseCsv, mapRecord, parseCsvLine } from "./CsvParser";
 
-describe("splitLine", () => {
+describe("parseCsvLine", () => {
   [
     { input: "a", expected: ["a"] },
     { input: "a,b", expected: ["a", "b"] },
@@ -13,7 +13,7 @@ describe("splitLine", () => {
     { input: '"\\"a\\""', expected: ['"a"'] }
   ].forEach(({ input, expected }) => {
     it("splits the line into fields", () => {
-      expect(splitLine(input)).toEqual(expected);
+      expect(parseCsvLine(input)).toEqual(expected);
     });
   });
 });

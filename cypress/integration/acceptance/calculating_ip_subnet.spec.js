@@ -43,5 +43,9 @@ describe("Calculating IP subnets", () => {
     it("displays the subnet mask", () => {
       cy.testid("subnetMask").contains("255.255.255.0");
     });
+
+    it.skip("displays the IANA allocation", () => {
+      cy.testid("allocation").contains("Administered by ARIN")
+    })
   });
 });

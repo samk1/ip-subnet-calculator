@@ -16,3 +16,13 @@ export function splitLine(line) {
 
   return record;
 }
+
+export function mapRecord(headers, record) {
+  if (record.length != headers.length) {
+    raise("Invalid record or headers", record, headers);
+  }
+
+  const entries = headers.map((header, i) => [header, record[i]])
+
+  return Object.fromEntries(entries)
+}

@@ -6,11 +6,10 @@ export function splitLine(line) {
   for (const match of line.matchAll(re)) {
     const [_, quoted, unquoted, fieldSeperator] = match;
     if (fieldSeperator) {
-      record.push("")
-      index++
-    }
-    else {
-      record[index] = (quoted && quoted.replace(/\\"/g, '"')) || unquoted
+      record.push("");
+      index++;
+    } else {
+      record[index] = (quoted && quoted.replace(/\\"/g, '"')) || unquoted;
     }
   }
 
@@ -22,7 +21,7 @@ export function mapRecord(headers, record) {
     raise("Invalid record or headers", record, headers);
   }
 
-  const entries = headers.map((header, i) => [header, record[i]])
+  const entries = headers.map((header, i) => [header, record[i]]);
 
-  return Object.fromEntries(entries)
+  return Object.fromEntries(entries);
 }

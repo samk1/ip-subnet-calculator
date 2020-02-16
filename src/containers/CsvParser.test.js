@@ -20,30 +20,30 @@ describe("splitLine", () => {
 
 describe("mapRecord", () => {
   it("maps headers to fields", () => {
-    const headers = ["h1", "h2"]
-    const fields = ["f1", "f2"]
+    const headers = ["h1", "h2"];
+    const fields = ["f1", "f2"];
 
     expect(mapRecord(headers, fields)).toEqual({
       h1: "f1",
       h2: "f2"
-    })
-  })
+    });
+  });
 
   describe("when there are more headers than records", () => {
     it("raises an error", () => {
-      const headers = ["h1", "h2"]
-      const fields = ["f1"]
+      const headers = ["h1", "h2"];
+      const fields = ["f1"];
 
-      expect(() => mapRecord(headers, fields)).toThrow()
-    })
-  })
+      expect(() => mapRecord(headers, fields)).toThrow();
+    });
+  });
 
   describe("when there are more records than headers", () => {
     it("raises an error", () => {
-      const headers = ["h1"]
-      const fields = ["f1", "f2"]
+      const headers = ["h1"];
+      const fields = ["f1", "f2"];
 
-      expect(() => mapRecord(headers, fields)).toThrow()
-    })
-  })
-})
+      expect(() => mapRecord(headers, fields)).toThrow();
+    });
+  });
+});

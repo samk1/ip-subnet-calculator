@@ -1,4 +1,4 @@
-function parse(ipAddress) {
+export function parse(ipAddress) {
   if (typeof ipAddress !== "string") {
     return null;
   }
@@ -29,7 +29,7 @@ function parse(ipAddress) {
   return { octets, netmask };
 }
 
-function calculate({ octets, netmask }) {
+export function calculate({ octets, netmask }) {
   const ipAddress = octets.reduce((ipAddress, octet, i) => {
     return (ipAddress << 8) + octet;
   }, 0);
@@ -54,10 +54,8 @@ function calculate({ octets, netmask }) {
   };
 }
 
-function contains(network, ip) {
+export function contains(network, ip) {
   const { networkAddress, broadcastAddress } = network;
   const { ipAddress } = ip;
   return ipAddress >= networkAddress && ipAddress <= broadcastAddress;
 }
-
-module.exports = { parse, calculate, contains };

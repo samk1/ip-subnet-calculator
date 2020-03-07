@@ -1,0 +1,23 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+
+    #ip_address_form {
+        width: 600px;
+        height: 100px;
+        padding: 20px;
+        flex-grow: 1;
+
+        label {
+            display: inline-block;
+            text-align: right;
+            width: 200px;
+            padding: 20px;
+        }
+    }
+
+    #ip_subnet_calculator {
+        width: 600px;
+        flex-grow: 1;
+    }
+}

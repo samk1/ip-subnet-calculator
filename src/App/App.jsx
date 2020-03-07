@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./App.scss";
 import IpSubnetCalculator from "./IpSubnetCalculator";
 
 function useInput(initialValue) {
@@ -22,9 +22,13 @@ function App() {
 
   return (
     <main>
-      <div id="ip_address_input">
-        <input data-testid="ip_address_input" {...bind} />
-      </div>
+      <form id="ip_address_form">
+        <label for="ip_address">IP Address</label>
+        <input
+          name="ip_address"
+          data-testid="ip_address_input"
+          {...bind} />
+      </form>
       <div id="ip_subnet_calculator">
         <IpSubnetCalculator ipAddress={value} />
       </div>

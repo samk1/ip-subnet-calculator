@@ -17,15 +17,36 @@ export default function IpSubnetCalculator(props) {
       };
 
   return (
-    <section data-testid="ipSubnetCalculator">
-      {Object.entries(result).map(([name, value]) => (
-        <article data-testid={name} key={name}>
-          <DottedQuad value={value} />
-        </article>
-      ))}
-      <article data-testid="allocation">
-        <IpAllocation ipAddress={result.ipAddress} />
-      </article>
-    </section>
+    <dl>
+      <dt>IP Address</dt>
+      <dd data-testid="ipAddress">
+        <DottedQuad value={result.ipAddress} />
+      </dd>
+
+      <dt>Subnet Mask</dt>
+      <dd data-testid="subnetMask">
+        <DottedQuad value={result.subnetMask} />
+      </dd>
+
+      <dt>Low Address</dt>
+      <dd data-testid="lowAddress">
+        <DottedQuad value={result.lowAddress} />
+      </dd>
+
+      <dt>High Address</dt>
+      <dd data-testid="highAddress">
+        <DottedQuad value={result.highAddress} />
+      </dd>
+
+      <dt>Network Address</dt>
+      <dd data-testid="networkAddress">
+        <DottedQuad value={result.networkAddress} />
+      </dd>
+
+      <dt>Broadcast Address</dt>
+      <dd data-testid="broadcastAddress">
+        <DottedQuad value={result.broadcastAddress} />
+      </dd>
+    </dl>
   );
 }

@@ -22,10 +22,14 @@ function App() {
   const { value, bind } = useInput();
 
   return (
-    <>
-      <input data-testid="ip_address_input" {...bind} />
-      <IpSubnetCalculator ipAddress={value} />
-    </>
+    <main>
+      <div id="ip_address_input">
+        <input data-testid="ip_address_input" {...bind} />
+      </div>
+      <div id="ip_subnet_calculator">
+        <IpSubnetCalculator ipAddress={value} />
+      </div>
+    </main>
   );
 }
 

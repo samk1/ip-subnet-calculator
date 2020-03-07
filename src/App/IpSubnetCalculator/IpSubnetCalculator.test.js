@@ -1,8 +1,7 @@
 import React from "react";
 import IpSubnetCalculator from "./IpSubnetCalculator.jsx";
-import IpAllocation from "./IpAllocation.jsx"
 import { calculate, parse } from "./Ip4Address.js";
-import DottedQuad from "./DottedQuad.jsx";
+import DottedQuad from "./DottedQuad";
 
 jest.mock("./Ip4Address.js", () => ({
   parse: jest.fn(),
@@ -90,16 +89,6 @@ describe("when ip address prop is valid", () => {
         .prop("value")
     ).toBe("the broadcast address");
   });
-
-  it("passes the ip address to the IpAllocation component", () => {
-    expect(
-      wrapper
-        .testid("allocation")
-        .find(IpAllocation)
-        .prop("ipAddress")
-    ).toBe("the ip address")
-  })
-
 });
 
 describe("when the ip address prop is invalid", () => {

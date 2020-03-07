@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import IpSubnetCalculator from "./containers/IpSubnetCalculator.jsx";
+import IpSubnetCalculator from "./IpSubnetCalculator";
 
 function useInput(initialValue) {
   const [value, setValue] = useState(initialValue);

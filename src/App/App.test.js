@@ -1,6 +1,6 @@
 import React from "react";
-import App from "./App";
-import IpSubnetCalculator from "./containers/IpSubnetCalculator";
+import App from "./App.jsx";
+import IpSubnetCalculator from "./IpSubnetCalculator";
 
 let wrapper;
 

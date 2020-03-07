@@ -1,7 +1,6 @@
 import React from "react";
 import { calculate, parse } from "./Ip4Address.js";
-import DottedQuad from "./DottedQuad.jsx";
-import IpAllocation from "./IpAllocation.jsx";
+import DottedQuad from "./DottedQuad";
 
 export default function IpSubnetCalculator(props) {
   const parsed = parse(props.ipAddress);
@@ -17,7 +16,7 @@ export default function IpSubnetCalculator(props) {
       };
 
   return (
-    <dl>
+    <dl data-testid="ipSubnetCalculator">
       <dt>IP Address</dt>
       <dd data-testid="ipAddress">
         <DottedQuad value={result.ipAddress} />

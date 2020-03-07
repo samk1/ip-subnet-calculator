@@ -1,5 +1,5 @@
 import React from "react";
-import DottedQuad from "./DottedQuad";
+import DottedQuad from "./DottedQuad.jsx";
 
 let wrapper;
 
